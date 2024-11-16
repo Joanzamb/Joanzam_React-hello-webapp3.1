@@ -1,23 +1,36 @@
+import React from "react";
 
-import React, { useContext } from "react";
-import { Context } from "../store/appContext";
-
-export const ContactCard = ({ contact }) => {
-    const { actions } = useContext(Context);
-
+export const ContactCard = ({ contact, onDelete, onEdit }) => {
     return (
         <div className="card mb-3">
-            <div className="card-body">
-                <h5 className="card-title">{contact.name}</h5>
-                <p className="card-text">Email: {contact.email}</p>
-                <p className="card-text">Phone: {contact.phone}</p>
-                <p className="card-text">Address: {contact.address}</p>
-                <button
-                    className="btn btn-danger"
-                    onClick={() => actions.deleteContact(contact.id)}
-                >
-                    Delete
-                </button>
+            <div className="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 className="card-title">{contact.name}</h5>
+                    <p className="card-text">
+                        <strong>Email:</strong> {contact.email} <br />
+                        <strong>Phone:</strong> {contact.phone} <br />
+                        <strong>Address:</strong> {contact.address}
+                    </p>
+                </div>
+                <div className="d-flex gap-2">
+                    {/* Botón para editar */}
+                    <button 
+                        className="btn btn-outline-primary" 
+                        onClick={() => onEdit(contact)}
+                        aria-label="Edit contact"
+                    >
+                        <i className="bi bi-pencil"></i>
+                    </button>
+
+                    {/* Botón para eliminar */}
+                    <button 
+                        className="btn btn-outline-danger" 
+                        onClick={() => onDelete(contact.id)}
+                        aria-label="Delete contact"
+                    >
+                        <i className="bi bi-trash"></i>
+                    </button>
+                </div>
             </div>
         </div>
     );
